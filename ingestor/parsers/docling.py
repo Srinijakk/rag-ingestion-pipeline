@@ -9,12 +9,6 @@ Docling JSON shape:
     "pictures": [ { "self_ref", "captions", "prov" } ],
     "pages":    { "1": { "size": { "width", "height" } } }
   }
-
-Key differences from ADI:
-  - Uses $ref pointers for cross-references (e.g. captions point to texts)
-  - bbox uses BOTTOMLEFT coordinate origin
-  - label field instead of role ("section_header", "text", "table", etc.)
-  - page_no instead of page_number
 """
 
 from .base import BaseParser, ParsedDocument, RawBlock
