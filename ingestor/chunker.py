@@ -18,11 +18,6 @@ Chunking rules (critical for RAG correctness):
                 Every subsequent chunk carries section_heading as metadata.
                 This lets the retrieval layer filter by section without
                 polluting the vector space with low-signal heading chunks.
-
-Configuration:
-  MAX_TOKENS and CHUNK_OVERLAP are module-level constants — easy to tune
-  per deployment without changing logic. In production, expose these as
-  environment variables.
 """
 
 import re
@@ -34,22 +29,7 @@ from .parsers.base import ParsedDocument, RawBlock
 # Configuration — tune per deployment by changing MAX_CHARS only
 # ------------------------------------------------------------------
 
-# Safety ceiling based on the ACTUAL embedding model constraint.
-#
-# all-MiniLM-L6-v2 has max_seq_length = 256 word pieces.
-# We target ~200 tokens (800 chars at 4 chars/token), leaving a
-# safety margin for:
-#   - tokenizer differences (word pieces != words)
-#   - special tokens added by the model ([CLS], [SEP])
-#   - variation in character-to-token ratio
-#
-# Why NOT 512: MiniLM truncates inputs silently above 256 word pieces.
-# A 480-token chunk would lose nearly half its content during embedding
-# — exactly the kind of silent correctness failure this pipeline must avoid.
-#
-# The limit is chosen from the model's actual constraint, not a generic
-# assumption. To swap embedding models, update MAX_CHARS to match the
-# new model's max_seq_length.
+
 MAX_CHARS: int = 800  # ~200 tokens — safe ceiling for all-MiniLM-L6-v2
 
 
