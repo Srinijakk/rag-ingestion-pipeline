@@ -77,6 +77,7 @@ curl -X POST http://localhost:8000/ingest \
   "document_id": "doc-001",
   "tenant_id": "acme-corp",
   "collection_id": "benefits-2024",
+  "document_type": "insurance",
   "chunks_ingested": 12,
   "status": "success",
   "error": null
