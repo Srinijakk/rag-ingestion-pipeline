@@ -88,23 +88,10 @@ curl -X POST http://localhost:8000/ingest \
 ## Run Tests
 
 ```bash
-# Install dependencies (if not already done)
-pip install -r requirements.txt
-
 # Run all tests
 pytest tests/ -v
 
-# Run specific test file
-pytest tests/test_chunker.py -v
-
-# Run with coverage
-pytest tests/ --cov=ingestor --cov-report=term-missing
 ```
-
-Tests use `MockEmbedder` and `MockVectorStore` — no Qdrant or model download required.
-
----
-
 ## Supported Parser Formats
 
 | Parser | Format | Auto-detected by |
@@ -115,13 +102,6 @@ Tests use `MockEmbedder` and `MockVectorStore` — no Qdrant or model download r
 Parser format is auto-detected from JSON structure. `document_type` is a business category (e.g. `insurance`, `clinical_protocol`), not a parser selector.
 
 ---
-
-## Environment Variables
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `QDRANT_HOST` | `localhost` | Qdrant host |
-| `QDRANT_PORT` | `6333` | Qdrant REST port |
 
 ---
 
