@@ -1,17 +1,10 @@
 """
 Embedding abstraction layer.
 
-Why abstract the embedder?
-  - Tests use MockEmbedder — no model download, no GPU, instant CI
-  - Production uses SentenceTransformerEmbedder (local, free)
-  - Can swap to OpenAIEmbedder in one line without touching pipeline code
-  - The embedder is injected into ingest() — never hardcoded
-
 Model choice: all-MiniLM-L6-v2
   - 384 dimensions — compact, fast
   - Strong performance on semantic similarity benchmarks
   - Runs on CPU — no GPU required for typical enterprise doc volumes
-  - Entirely offline — no API key, no data leaves the instance
 """
 
 from abc import ABC, abstractmethod
