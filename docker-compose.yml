@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+
+  # ── Qdrant vector store ──────────────────────────────────────────────
+  qdrant:
+    image: qdrant/qdrant:v1.9.2
+    ports:
+      - "6333:6333"       # REST API
+      - "6334:6334"       # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage   # persist vectors across restarts
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  qdrant_data:
