@@ -10,14 +10,6 @@ Flow:
     → upsert       → Qdrant (single collection, tenant isolated via payload filter)
     → IngestResult
 
-Design decisions:
-  - async def ingest() — non-blocking, ready for Celery/RQ worker pool
-  - Embedder and VectorStore injected — swappable, fully mockable in tests
-  - Idempotent: point ID = uuid5(tenant_id + collection_id + document_id + chunk_index)
-    Two tenants with the same document_id never collide.
-  - Single Qdrant collection "documents" — tenant isolation via payload filter.
-    Simpler ops at scale vs. one collection per tenant.
-  - Per-stage try/except — one bad page never kills the whole document.
 """
 
 import json
