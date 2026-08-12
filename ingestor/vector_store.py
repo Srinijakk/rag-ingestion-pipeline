@@ -1,18 +1,10 @@
 """
 Vector store abstraction layer.
 
-Tenant isolation strategy (updated from A1):
+Tenant isolation strategy 
 
   Single Qdrant collection: "documents"
-  Tenant isolation via payload filter on tenant_id + collection_id.
-
-  Why payload filter instead of separate collections?
-    - Millions of documents, hundreds of tenants = potentially thousands
-      of collections. Qdrant has per-collection overhead (HNSW index,
-      memory segments). At scale, fewer collections = better ops.
-    - Easier to manage: one collection to monitor, back up, and scale.
-    - Retrieval filters on indexed payload fields are sub-millisecond.
-    - Simpler GDPR deletion: delete by filter instead of dropping collection.
+  Tenant isolation via payload filter on tenant_id + collection_id..
 
   Trade-off acknowledged:
     Separate collections give harder physical isolation. For tenants with
